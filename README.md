@@ -77,14 +77,6 @@ To respect collaborator data-sharing terms, this repository ships **code only**:
 4. Virtual screen + rank candidates: `scripts/predict_cosmobridge_v3.py`,
    `scripts/rank_ils_desirability.py`.
 
-## Citation
-
-> Ahmed, K.; Islam, T.; Acquah, A.; Achinivu-Ibagere, E. *COSMOBridge: Bridging
-> 2D Molecular Graphs and 3D Electrostatic Surfaces for Ionic Liquid
-> Thermodynamic Property Prediction.* (Manuscript under review.)
-
-A BibTeX entry and archival DOI will be added on publication.
-
 ## License
 
 See [LICENSE](LICENSE).
