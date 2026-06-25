@@ -1,0 +1,36 @@
+# COSMOBridge v4 Router (I1) configuration
+
+model:
+  hidden: 64
+  dropout: 0.3
+  n_properties: 7
+
+optimizer:
+  lr: 1.0e-3
+  weight_decay: 1.0e-3
+  type: AdamW
+
+training:
+  batch_size: 32
+  epochs: 300
+  patience: 40
+  scheduler: CosineAnnealingLR
+
+anchor:
+  init_weight: 0.1
+  final_weight: 0.01
+  decay: linear  # over epochs
+
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+paths:
+  cached_data: cosmobridge_v4/data/cached_{split}.npz
+  checkpoints: cosmobridge_v4/checkpoints/router_seed_{seed}.pt
+  predictions: cosmobridge_v4/results/seed_predictions/seed_{seed}.npz
+  metrics: cosmobridge_v4/results/router_metrics.json
+
+success_criteria:
+  test_avg_r2_min: 0.808
+  G_E_r2_min: 0.745
+  G_mix_r2_min: 0.720
+  seed_pass_fraction: 0.7  # 7 of 10 seeds

@@ -1,0 +1,15 @@
+torch>=2.0
+torchvision
+torch-geometric
+transformers
+rdkit-pypi
+openpyxl
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+plotly
+wandb
+pyyaml
+Pillow

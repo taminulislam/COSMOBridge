@@ -1,0 +1,51 @@
+# ---- Data (proprietary; not distributed) ----
+# anchored to repo root so source dirs like src/data/ are NOT ignored
+/data/
+*.xlsx
+*.csv
+*.npz
+*.npy
+*.off
+*.xyz
+*.zmat
+PEDRA.OUT*
+cavity*
+psi*.clean
+*.movecs
+*.db
+
+# ---- Trained models / checkpoints ----
+/checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# ---- Logs / job output ----
+/jobs/
+/logs/
+slurm-*.out
+*.out
+*.err
+*.log
+wandb/
+timer.dat
+
+# ---- Results / figures (regenerated from code) ----
+/results/
+*.png
+*.pdf
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# ---- Editor / OS ----
+.DS_Store
+.idea/
+.vscode/

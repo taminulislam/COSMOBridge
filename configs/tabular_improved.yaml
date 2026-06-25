@@ -1,0 +1,66 @@
+# Improved configuration for tabular DNN model
+# Changes vs default.yaml:
+#   - Larger embeddings (64/32/32 vs 32/16/16)
+#   - Smaller hidden dims (128, 64, 32 vs 256, 128, 64) to prevent overfitting
+#   - Higher dropout (0.5 vs 0.3)
+#   - Lower learning rate (5e-5 vs 1e-4)
+#   - Longer warmup (20 vs 10 epochs)
+#   - Higher weight decay (1e-3 vs 1e-4)
+#   - Feature engineering: 1/T, T², T³ added in preprocessing
+
+data:
+  excel_path: "Activity coeff and Excess Enthalpy for Imaging.xlsx"
+  image_dir: "Image"
+  processed_dir: "data/processed"
+  splits_dir: "data/splits"
+  sheet_name: "Datasheet"
+  target_columns:
+    - "gamma1"
+    - "gamma2"
+    - "G_E"
+    - "H_E"
+    - "G_mix"
+    - "H_vap"
+    - "P"
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  random_seed: 42
+  num_folds: 5
+
+model:
+  tabular:
+    il_embed_dim: 64
+    cation_embed_dim: 32
+    anion_embed_dim: 32
+    hidden_dims: [128, 64, 32]
+    dropout: 0.5
+    batch_norm: true
+    activation: "relu"
+
+  prediction:
+    hidden_dims: [256, 128]
+    dropout: 0.3
+    num_targets: 7
+
+training:
+  batch_size: 32
+  num_epochs: 300
+  learning_rate: 5.0e-5
+  weight_decay: 1.0e-3
+  optimizer: "adamw"
+  scheduler: "cosine"
+  warmup_epochs: 20
+  early_stopping_patience: 40
+  gradient_clip: 1.0
+  loss_type: "physics"
+  physics_use_uncertainty: true
+  physics_weight: 0.1
+
+experiment:
+  name: "il_tabular_improved"
+  seed: 42
+  device: "auto"
+  num_workers: 4
+  log_dir: "logs"
+  checkpoint_dir: "checkpoints/tabular_improved"

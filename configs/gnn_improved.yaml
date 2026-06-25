@@ -1,0 +1,44 @@
+# Improved GNN configuration
+# Changes: temperature aux features, lower LR, longer warmup, more patience,
+# SMILES augmentation, physics-informed uncertainty loss
+
+data:
+  processed_dir: "data/processed"
+  target_columns: ["gamma1", "gamma2", "G_E", "H_E", "G_mix", "H_vap", "P"]
+
+model:
+  graph:
+    hidden_dim: 256
+    num_layers: 4
+    conv_type: "GAT"
+    heads: 4
+    dropout: 0.3
+    pooling: "mean"
+    atom_feature_dim: 22
+    bond_feature_dim: 7
+    use_aux_features: true  # inject temperature features into prediction head
+
+  prediction:
+    num_targets: 7
+
+training:
+  batch_size: 32
+  num_epochs: 300
+  learning_rate: 5.0e-5
+  weight_decay: 1.0e-3
+  optimizer: "adamw"
+  scheduler: "cosine"
+  warmup_epochs: 20
+  early_stopping_patience: 40
+  gradient_clip: 1.0
+  loss_type: "physics"
+  physics_use_uncertainty: true
+  physics_weight: 0.1
+  smiles_augment: true
+
+experiment:
+  name: "il_gnn_improved"
+  seed: 42
+  device: "auto"
+  num_workers: 4
+  checkpoint_dir: "checkpoints/gnn_improved"

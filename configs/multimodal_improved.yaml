@@ -1,0 +1,79 @@
+# Improved multimodal configuration
+# Changes: ResNet34 (not ViT), frozen vision, larger tabular embeddings,
+# engineered T features, physics-informed uncertainty loss
+
+data:
+  processed_dir: "data/processed"
+  target_columns: ["gamma1", "gamma2", "G_E", "H_E", "G_mix", "H_vap", "P"]
+
+image:
+  size: 224
+  normalize_mean: [0.485, 0.456, 0.406]
+  normalize_std: [0.229, 0.224, 0.225]
+  augmentation:
+    random_rotation: 30
+    horizontal_flip: true
+    vertical_flip: true
+    color_jitter:
+      brightness: 0.2
+      contrast: 0.2
+      saturation: 0.2
+      hue: 0.1
+
+model:
+  vision:
+    backbone: "resnet34"
+    pretrained: true
+    feature_dim: 512
+    freeze_layers: 8  # freeze entire ResNet backbone
+    dropout: 0.3
+
+  graph:
+    hidden_dim: 256
+    num_layers: 4
+    conv_type: "GAT"
+    heads: 4
+    dropout: 0.3
+    pooling: "mean"
+    atom_feature_dim: 22
+    bond_feature_dim: 7
+
+  tabular:
+    il_embed_dim: 64
+    cation_embed_dim: 32
+    anion_embed_dim: 32
+    hidden_dims: [128, 64, 32]
+    dropout: 0.4
+
+  fusion:
+    method: "cross_attention"
+    fused_dim: 256
+    num_attention_heads: 8
+    dropout: 0.3
+
+  prediction:
+    hidden_dims: [128, 64]
+    dropout: 0.3
+    num_targets: 7
+
+training:
+  batch_size: 32
+  num_epochs: 300
+  learning_rate: 5.0e-5
+  weight_decay: 1.0e-3
+  optimizer: "adamw"
+  scheduler: "cosine"
+  warmup_epochs: 20
+  early_stopping_patience: 40
+  gradient_clip: 1.0
+  loss_type: "physics"
+  physics_use_uncertainty: true
+  physics_weight: 0.1
+  smiles_augment: true
+
+experiment:
+  name: "il_multimodal_improved"
+  seed: 42
+  device: "auto"
+  num_workers: 4
+  checkpoint_dir: "checkpoints/multimodal_improved"
