@@ -67,7 +67,7 @@ def main():
     # ══════════════════════════════════════════════════════════
     # LEFT: Input Modalities
     # ══════════════════════════════════════════════════════════
-    ax.text(1.5, 11.5, 'Input Modalities', ha='center', fontsize=12,
+    ax.text(1.5, 11.5, 'Input Modalities', ha='center', fontsize=7,
             fontweight='bold', color='#B71C1C')
 
     # SMILES input
@@ -88,7 +88,7 @@ def main():
     # ══════════════════════════════════════════════════════════
     # CENTER-LEFT: Frozen Encoders
     # ══════════════════════════════════════════════════════════
-    ax.text(5.5, 11.5, 'Pre-trained Encoders', ha='center', fontsize=12,
+    ax.text(5.5, 11.5, 'Pre-trained Encoders', ha='center', fontsize=7,
             fontweight='bold', color='#1565C0')
 
     # Chemprop D-MPNN
@@ -99,7 +99,7 @@ def main():
 
     # Details inside
     ax.text(5.5, 9.85, '3 iterations · sum pool · ~300K params',
-            ha='center', fontsize=6.5, color='#1565C0')
+            ha='center', fontsize=6, color='#1565C0')
 
     # PointNet
     draw_box(ax, (3.8, 7.2), 3.4, 1.5, 'PointNet Encoder',
@@ -108,7 +108,7 @@ def main():
     frozen_badge(6.8, 8.5)
 
     ax.text(5.5, 7.55, 'Surface electrostatic features',
-            ha='center', fontsize=6.5, color='#2E7D32')
+            ha='center', fontsize=6, color='#2E7D32')
 
     # Arrows: inputs → encoders
     draw_arrow(ax, (2.8, 10.25), (3.8, 10.25), color='#D32F2F', lw=2)
@@ -129,7 +129,7 @@ def main():
                                 linewidth=2.5, alpha=0.3)
     ax.add_patch(fusion_bg)
 
-    ax.text(10.75, 11.2, 'GBH Bilinear Fusion', ha='center', fontsize=13,
+    ax.text(10.75, 11.2, 'GBH Bilinear Fusion', ha='center', fontsize=8,
             fontweight='bold', color='#4A148C')
     ax.text(10.75, 10.7, 'TRAINABLE · 471K params', ha='center', fontsize=8,
             fontweight='bold', color='#7B1FA2')
@@ -217,7 +217,7 @@ def main():
         (16.0, 2.5, '④ Record γ₁=0.908, γ₂=0.936\n    Best activity coefficients', '#D32F2F'),
     ]
     for x, y, text, color in innovations:
-        ax.text(x, y, text, fontsize=7.5, fontweight='bold', color=color,
+        ax.text(x, y, text, fontsize=7, fontweight='bold', color=color,
                 bbox=dict(boxstyle='round,pad=0.3', facecolor='white',
                           edgecolor=color, alpha=0.9, linewidth=1.5))
 
@@ -230,7 +230,7 @@ def main():
 
     ax.text(10, 0.5, 'Frozen encoders (pre-trained) + Trainable fusion = '
             'Best of both worlds for low-data molecular multimodal learning',
-            ha='center', fontsize=7.5, color='#555', style='italic')
+            ha='center', fontsize=7, color='#555', style='italic')
 
     plt.tight_layout()
     plt.savefig(OUT, dpi=300, bbox_inches='tight', facecolor='white')

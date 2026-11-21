@@ -112,21 +112,20 @@ def make_panel(ils_subset, output_path, panel_title, color_key):
             ax_ep.imshow(img_arr)
         except Exception as e:
             ax_ep.text(0.5, 0.5, f"Image not found",
-                      ha='center', va='center', fontsize=10,
+                      ha='center', va='center', fontsize=13,
                       transform=ax_ep.transAxes)
         ax_ep.axis('off')
         ax_ep.set_title(f"COSMO Electrostatic Surface",
                        fontsize=14, fontweight='bold', color=color, pad=6)
 
     # Column headers
-    fig.text(0.27, 0.98, '2D Molecular Structure', fontsize=18, fontweight='bold',
+    fig.text(0.27, 0.995, '2D Molecular Structure', fontsize=18, fontweight='bold',
             ha='center', va='top', transform=fig.transFigure)
-    fig.text(0.73, 0.98, 'COSMO Electrostatic Potential Surface', fontsize=18,
+    fig.text(0.73, 0.995, 'COSMO Electrostatic Potential Surface', fontsize=18,
             fontweight='bold', ha='center', va='top', transform=fig.transFigure)
 
-    # Panel title
-    fig.text(0.5, 0.995, panel_title, fontsize=20, fontweight='bold',
-            ha='center', va='top', transform=fig.transFigure, color=color)
+    # No in-image panel title: the figure is numbered by its LaTeX caption.
+    _ = panel_title
 
     # Legend at bottom
     ax_legend = fig.add_subplot(gs[n, :])

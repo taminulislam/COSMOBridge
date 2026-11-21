@@ -1,5 +1,5 @@
 """Reviewer revision (COSMOBridge, Nice-9): t-SNE of the GBH fusion-path embeddings,
-colored by the fusion-path predicted ln(gamma1), to show surface-aware organization.
+colored by the fusion-path predicted gamma1 (raw, at x1 = 0.5), to show surface-aware organization.
 
 We hook the 256-D output of the GatedBilinearHyperFusionV2 module (the fused embedding
 fed to the prediction head) for every row across train+val+test (223 rows). The surface
@@ -114,7 +114,7 @@ def main():
     sc = ax.scatter(emb2d[:, 0], emb2d[:, 1], c=g1, cmap="viridis",
                     s=42, edgecolors="k", linewidths=0.4, alpha=0.9)
     cb = fig.colorbar(sc, ax=ax)
-    cb.set_label(r"Predicted $\ln\,\gamma_1^\infty$", fontsize=11)
+    cb.set_label(r"Predicted $\gamma_1$", fontsize=11)  # raw gamma at x1 = 0.5, not ln gamma^inf
     ax.set_xlabel("t-SNE 1", fontsize=11)
     ax.set_ylabel("t-SNE 2", fontsize=11)
     ax.set_xticks([]); ax.set_yticks([])

@@ -56,12 +56,13 @@ def main():
         ax.bar(x + (i - 2) * width, cand[col].values, width, label=lab, color=c, alpha=0.9)
     ax.scatter(x, cand["D"].values, s=130, color="red", marker="D",
                zorder=5, label="D (combined)", edgecolor="white", linewidth=1)
-    ax.set_xticks(x); ax.set_xticklabels([SHORT[n] for n in cand["name"]], fontsize=10)
-    ax.set_ylabel("Desirability [0--1]", fontsize=12)
+    ax.set_xticks(x); ax.set_xticklabels([SHORT[n] for n in cand["name"]], fontsize=13)
+    ax.set_ylabel("Desirability [0--1]", fontsize=14)
+    ax.tick_params(axis="y", labelsize=12)
     ax.set_ylim(0, 1.08)
     ax.set_title("Derringer--Suich Desirability --- Five Forwarded COSMOBridge Candidates",
                  fontsize=13, fontweight="bold")
-    ax.legend(loc="upper right", ncol=3, fontsize=9)
+    ax.legend(loc="upper right", ncol=3, fontsize=12)
     ax.grid(axis="y", alpha=0.3)
     plt.tight_layout()
     for o in OUTS:
@@ -77,20 +78,22 @@ def main():
     top3 = cand.head(3)  # acetate, formate, propanoate
     labels = [f"[TMG][{a}]\nRank #{i+1}{n}" for i, (a, n) in enumerate(
         [("OAc", ""), ("For", " (fully novel)"), ("Pro", " (fully novel)")])]
-    fig = plt.figure(figsize=(13, 3.6))
+    fig = plt.figure(figsize=(11, 3.9))
     sc = None
     for i, (_, r) in enumerate(top3.iterrows()):
         pc = generate_point_cloud(r["smiles"])
         ax = fig.add_subplot(1, 3, i + 1, projection="3d")
         sc = ax.scatter(pc[:, 0], pc[:, 1], pc[:, 2], c=pc[:, 6], cmap="coolwarm",
                         s=6, vmin=-0.3, vmax=0.3, alpha=0.8)
-        ax.set_title(labels[i], fontsize=10)
-        ax.set_xlabel("X"); ax.set_ylabel("Y"); ax.set_zlabel("Z")
+        ax.set_title(labels[i], fontsize=13)
+        ax.set_xlabel("X", fontsize=12); ax.set_ylabel("Y", fontsize=12); ax.set_zlabel("Z", fontsize=12)
+        ax.set_xticklabels([]); ax.set_yticklabels([]); ax.set_zticklabels([])
         ax.view_init(elev=20, azim=45)
     fig.suptitle("COSMO-style ESP Surfaces of Top COSMOBridge v3 Candidates",
-                 fontsize=13, fontweight="bold")
+                 fontsize=16, fontweight="bold")
     cb = fig.colorbar(sc, ax=fig.axes, shrink=0.6, pad=0.02)
-    cb.set_label("ESP (a.u.)")
+    cb.set_label("ESP (a.u.)", fontsize=13)
+    cb.ax.tick_params(labelsize=11)
     for o in OUTS:
         bak = o / "candidate_esp_panel.PRE_I4FIX.png"
         src = o / "candidate_esp_panel.png"
